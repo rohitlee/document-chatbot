@@ -1,0 +1,16 @@
+txt
+streamlit>=1.28.0
+langchain>=0.0.350
+sentence-transformers>=2.2.2
+chromadb>=0.4.0
+pypdf2>=3.0.0
+python-docx>=0.8.11
+spacy>=3.7.0
+transformers>=4.35.0
+torch>=2.1.0
+plotly>=5.17.0
+pandas>=2.1.0
+requests>=2.31.0
+langchain-community>=0.0.350
+pypdf>=5.6.0
+sarvamai>=0.1.5
