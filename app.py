@@ -107,11 +107,54 @@ def main():
         
         st.divider()
 
+        # language selection dropown
+        st.header("🌐 Language Settings")
+        language_options = {
+            "en-IN": "English",
+            "hi-IN": "Hindi",
+            "bn-IN": "Bengali",
+            "gu-IN": "Gujarati",
+            "kn-IN": "Kannada",
+            "ml-IN": "Malayalam",
+            "mr-IN": "Marathi",
+            "od-IN": "Odia",
+            "pa-IN": "Punjabi",
+            "ta-IN": "Tamil",
+            # Add other supported codes from the error message if needed
+        }
+        selected_language = st.selectbox(
+            "Choose Response Language",
+            options=list(language_options.keys()),
+            format_func=lambda x: language_options[x],
+            index=0 # Default to English
+        )
+        
+        st.divider()
+        st.header("📊 Statistics")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.metric("Documents", len(st.session_state.processed_files))
+        with col2:
+            st.metric("Queries", st.session_state.query_count)
+        
+        if st.session_state.confidence_history:
+            avg_confidence = sum(st.session_state.confidence_history) / len(st.session_state.confidence_history)
+            st.metric("Avg Relevance", f"{avg_confidence:.1%}")
+        
+        st.divider()
+        st.header("⚡ Quick Actions")
+        if st.button("Clear Chat & History", use_container_width=True):
+            st.session_state.messages = []
+            st.session_state.query_count = 0
+            st.session_state.confidence_history = []
+            st.rerun()
+
     st.header("💬 Chat Interface")
     chat_container = st.container(height=500)
     with chat_container:
         display_chat_messages()
 
+    # passing selected lang to handler 
     handle_chat_input(nlp_processor, retriever, response_generator, selected_language)
 
 def process_documents(uploaded_files, doc_processor):
@@ -198,26 +241,33 @@ def handle_chat_input(nlp_processor, retriever, response_generator, language: st
                 })
         st.rerun()
 
+# Response logic for Multilingual flow
 def generate_chatbot_response(query: str, nlp_processor, retriever, response_generator, language: str):
     """Orchestrate the full RAG pipeline for a multilingual response."""
     
+    # 1. Translate user's query to English for searching.
+    # The source language is auto-detected. The target is our consistent pivot language, 'en-IN'.
     english_query = nlp_processor.translate_text(query, source_lang="auto", target_lang='en-IN')
 
     if not english_query or not english_query.strip():
         return {"response": "I could not understand your question. Please try rephrasing.", "confidence": 0.0}
 
+    # 2. Retrieve relevant documents using the English query
     retrieved_docs = retriever.hybrid_search(english_query, k=5)
 
+    # 3. Handle the case where no relevant documents are found
     if not retrieved_docs:
         not_found_message = "I couldn't find relevant information in your documents to answer that. Please try rephrasing your question."
         # Translate the "not found" message back to the user's CHOSEN language
         translated_not_found = nlp_processor.translate_text(not_found_message, source_lang='en-IN', target_lang=language)
         return {"response": translated_not_found, "confidence": 0.0}
     
+    # 4. Generate a response using the LLM. Pass the user's chosen language for the final translation step.
     response = response_generator.generate_response(
         english_query, retrieved_docs, nlp_processor, target_language=language
     )
 
+    # 5. Calculate confidence based on relevance of retrieved docs
     confidence = sum(doc.get('score', 0) for doc in retrieved_docs) / len(retrieved_docs) if retrieved_docs else 0.0
     
     return {"response": response, "confidence": confidence}
