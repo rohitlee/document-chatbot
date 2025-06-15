@@ -15,6 +15,11 @@ This file contains the code related to processing of documents into vector db, a
 - [Getting started with CromaDB](https://docs.trychroma.com/docs/overview/getting-started)
 - 
 
+## Running UTs
+```
+python -m unittest tests\components\test_document_processor.py
+```
+
 # Team members
 
 - Rohit Singh
