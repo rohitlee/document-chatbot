@@ -5,10 +5,18 @@ from sentence_transformers import SentenceTransformer
 class DocumentRetriever:
     def __init__(self, chroma_collection):
         self.collection = chroma_collection
-        self.embedding_model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-mpnet-base-v2') # use same model used for embedding
+        self.embedding_model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-mpnet-base-v2')
+        
 
     def similarity_search(self, query: str, k: int = 5) -> List[Dict]:
         """Perform similarity search on documents."""
+        query_embedding=self.embedding_model.encode(query)
+        results=self.collection.query(
+            query_embedding=[query_embedding.tolist()],
+            n_results=k
+            )
+        return self._format_results(results)
+
     
     def hybrid_search(self, query: str, k: int = 5) -> List[Dict]:
         """
