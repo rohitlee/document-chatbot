@@ -11,6 +11,10 @@ This solution addresses the growing need for efficient multilingual document ana
 
 This file contains the code related to processing of documents into vector db, and methods to do the semantic search using the query provided by the user
 
+## References
+- [Getting started with CromaDB](https://docs.trychroma.com/docs/overview/getting-started)
+- 
+
 # Team members
 
 - Rohit Singh

@@ -1,19 +1,19 @@
-import os
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.document_loaders import PyPDFLoader, Docx2txtLoader, TextLoader
-import chromadb
 from chromadb.types import Collection
+import chromadb
 
 class DocumentProcessor:
-    """Handles loading, processing, and storing documents."""
-    def __init__(self):
-        print("Initializing DocumentProcessor...")
-        self.text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150)
-        self.chroma_client = chromadb.Client() # Uses a transient in-memory DB by default
-        self.collection = self.chroma_client.get_or_create_collection("multilingual_documents")
+    """Initialises a Document Processor that handles document loading, splitting, and storage in ChromaDB."""
+    def __init__(self, chroma_client=None, collection_name="multilingual_documents"):
+        """
+        Initializes the DocumentProcessor with a ChromaDB client and collection.
+        :param chroma_client: An instance of ChromaDB client (optional, for dependency injection).
+        :param collection_name: Name of the ChromaDB collection.
+        """
+        self.chroma_client = chroma_client or chromadb.Client()  # Use provided client or default
+        self.collection = self.chroma_client.get_or_create_collection(collection_name)
 
     def process_and_store(self, file_path: str, file_name: str):
-        """Loads a document, splits it into chunks, and stores it."""
+        """Processes a document, splits it into chunks, and stores it in the ChromaDB collection."""
         print(f"Processing document: {file_name}")
         # Task for Ingestion Engineer: Add logic to load different file types
         # Task: Split documents into chunks
@@ -21,5 +21,5 @@ class DocumentProcessor:
         pass
 
     def get_collection(self) -> Collection:
-        """Returns the ChromaDB collection object."""
+        """Returns the ChromaDB collection."""
         return self.collection
