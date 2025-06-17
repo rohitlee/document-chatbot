@@ -30,4 +30,19 @@ class DocumentRetriever:
     def _format_results(self, results: Dict) -> List[Dict]:
         """Format ChromaDB results into a list of dictionaries."""
         formatted = []
+        if not results['documents'] or not results['documents'][0]:
+            return []
+        
+        docs=results['documents'][0]
+        metadatas=results['metadatas'][0]
+        distances=results['distances'][0]
+
+        for i in range(len(docs)):
+            formatted.append({
+                'content': docs[i],
+                #score is1-disatnce(cosine distance)
+                'score': 1 -distances[i] if distances else 0,
+                'metadata': metadatas[i] if metadatas else {}
+            })
+    
         return formatted
