@@ -9,8 +9,6 @@ from components.retrieval_system import DocumentRetriever
 from components.nlp_processor import NLPProcessor
 from components.document_processor import DocumentProcessor # Import the DocumentProcessor
 
-# --- Configuration ---
-# Make sure this points to the correct dataset file
 EVALUATION_DATASET_FILE = "data/evaluation_dataset.json" 
 # Directory containing the documents used to create the dataset
 DOCS_DIR = "evaluation_docs/"
@@ -25,7 +23,6 @@ class RetrievalEvaluator:
         """
         print("Initializing self-contained evaluation environment...")
         
-        # --- Build an independent RAG system for this evaluation run ---
         # 1. Initialize the document processor
         self.doc_processor = DocumentProcessor()
         
@@ -121,7 +118,7 @@ class RetrievalEvaluator:
                 'rank': rank
             })
             
-        # --- Calculate and Display Metrics ---
+        # Calculate and Display Metrics
         self.calculate_and_print_metrics(results)
 
     def calculate_and_print_metrics(self, results):
