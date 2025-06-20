@@ -6,12 +6,10 @@ from tqdm import tqdm
 import re
 import toml
 
-# --- Configuration ---
 CHUNKS_INPUT_FILE = "data/document_chunks.json"
 QA_OUTPUT_FILE = "data/evaluation_dataset_groq.json"
 SECRETS_FILE_PATH = ".streamlit/secrets.toml"
 
-# --- Groq Configuration ---
 MODEL_ID = "llama-3.1-8b-instant"
 
 def load_api_key(secret_key: str):
@@ -26,7 +24,7 @@ def load_api_key(secret_key: str):
         print(f"Error loading secrets file: {e}")
         return None
 
-# --- Load API Key and Initialize Client ---
+# Load API Key and Initialize Client
 GROQ_API_KEY = load_api_key("GROQ_API_KEY")
 
 if not GROQ_API_KEY:
@@ -36,7 +34,6 @@ if not GROQ_API_KEY:
 
 client = Groq(api_key=GROQ_API_KEY)
 
-# --- The rest of the script remains the same ---
 SYSTEM_PROMPT_TEMPLATE = """
 You are an expert data generator for evaluating a question-answering system.
 Your task is to generate one high-quality, relevant question and a concise answer based *only* on the provided text chunk.
