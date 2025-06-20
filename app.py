@@ -107,7 +107,7 @@ def main():
         
         st.divider()
 
-        # language selection dropown
+        # Language selection dropdown
         st.header("🌐 Language Settings")
         language_options = {
             "en-IN": "English",
@@ -120,7 +120,6 @@ def main():
             "od-IN": "Odia",
             "pa-IN": "Punjabi",
             "ta-IN": "Tamil",
-            # Add other supported codes from the error message if needed
         }
         selected_language = st.selectbox(
             "Choose Response Language",
@@ -154,7 +153,7 @@ def main():
     with chat_container:
         display_chat_messages()
 
-    # passing selected lang to handler 
+    # Passing the selected language to handler
     handle_chat_input(nlp_processor, retriever, response_generator, selected_language)
 
 def process_documents(uploaded_files, doc_processor):
@@ -214,6 +213,7 @@ def display_chat_messages():
                 """, unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
+# Update function signatures to accept language
 def handle_chat_input(nlp_processor, retriever, response_generator, language: str):
     """Handle chat input and generate responses."""
     user_input = st.chat_input("Ask a question about your documents...")
@@ -241,7 +241,6 @@ def handle_chat_input(nlp_processor, retriever, response_generator, language: st
                 })
         st.rerun()
 
-# Response logic for Multilingual flow
 def generate_chatbot_response(query: str, nlp_processor, retriever, response_generator, language: str):
     """Orchestrate the full RAG pipeline for a multilingual response."""
     
