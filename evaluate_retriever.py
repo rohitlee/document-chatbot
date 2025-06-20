@@ -1,4 +1,3 @@
-# evaluate_retriever.py
 import os
 import json
 import pandas as pd
