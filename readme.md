@@ -4,6 +4,10 @@ A Multilingual Intelligent Document Question-Answering System.
 This project presents a multilingual document processing system that enables users to upload documents in various languages and interact with their content through natural language queries. The system leverages Retrieval-Augmented Generation (RAG) architecture combined with multilingual language models to provide accurate, contextually relevant answers extracted from user-provided documents, regardless of the source language.
 This solution addresses the growing need for efficient multilingual document analysis in global academic, professional, and research contexts. By combining cross-lingual NLP techniques with user-friendly interfaces, the system democratizes access to complex multilingual document analysis, enabling users to quickly extract insights from diverse document collections without manual translation or language-specific searching.
 
+## 🔗 Live Demo
+[Click here to try the app](https://document-chatbot-iisc.streamlit.app)
+
+
 ## ✨ Features
 
 -   **Multi-Lingual Support:** Upload documents and ask questions in English, Hindi, Tamil, and more.
