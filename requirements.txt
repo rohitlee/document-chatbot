@@ -14,3 +14,6 @@ requests>=2.31.0
 langchain-community>=0.0.350
 pypdf>=5.6.0
 sarvamai>=0.1.5
+groq>=0.28.0
+protobuf==3.20.3
+pysqlite3-binary
