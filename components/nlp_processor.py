@@ -1,3 +1,4 @@
+# This file manages all interactions with external APIs (Hugging face)
 import streamlit as st
 from sarvamai import SarvamAI
 
@@ -11,9 +12,7 @@ class NLPProcessor:
             st.error(f"Failed to initialize Sarvam AI client: {e}")
 
     def translate_text(self, text: str, target_lang: str, source_lang: str = "auto") -> str:
-        """
-        Translate text using the official Sarvam AI SDK.
-        """
+        """Translate text using the official Sarvam AI SDK."""
         if not self.client or not text or not text.strip():
             return text
         if source_lang == target_lang and source_lang != "auto":
