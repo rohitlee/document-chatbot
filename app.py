@@ -47,9 +47,9 @@ st.markdown("""
         justify-content: flex-start;
     }
     .user-message {
-        background-color: var(--primary-color);
+        background-color: #1c83ff1a;
         text-align: right;
-        color: white;
+        color: #0066ff;
     }
     .bot-message {
         background-color: var(--secondary-background-color);
