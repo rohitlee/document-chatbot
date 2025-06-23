@@ -47,13 +47,13 @@ st.markdown("""
         justify-content: flex-start;
     }
     .user-message {
-        background-color: #1189d1;
+        background-color: var(--primary-color);
         text-align: right;
-        color: #f7f7f7;
+        color: white;
     }
     .bot-message {
-        background-color: transparent;
-        color: #f7f7f7;
+        background-color: var(--secondary-background-color);
+        color: var(--text-color);
     }
     .metrics-card {
         background: white;
