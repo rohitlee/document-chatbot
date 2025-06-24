@@ -1,3 +1,4 @@
+# This file focuses on the interaction with the Large Language Model.
 import requests
 import os
 import streamlit as st
