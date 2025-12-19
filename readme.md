@@ -51,12 +51,3 @@ Install all the dependencies mentioned in requirements.txt
 ```
 pip install -r requirements.txt
 ```
-
-# Team members
-
-- Rohit Singh
-- Santosh Grampurohit
-- Keshav Kumar
-- SK Mohammad Arif
-- Sourajit Bhar
-- Chandan Kumar Singh
